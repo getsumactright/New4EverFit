@@ -1,0 +1,43 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<div id="intro-overlay" hidden aria-label="4Ever Fit introduction">
+  <div class="intro-stage"><video id="intro-video" data-src={`${base}video/silver-intro.mp4`} muted playsinline preload="none" aria-hidden="true"></video></div>
+  <button id="intro-skip" type="button">Skip intro <span aria-hidden="true">↗</span></button>
+</div>
+<script>
+const overlay = document.getElementById('intro-overlay');
+const video = document.getElementById('intro-video') as HTMLVideoElement;
+const skip = document.getElementById('intro-skip');
+const key = '4everfit-intro-seen';
+let seen = false;
+try { seen = sessionStorage.getItem(key) === '1'; } catch {}
+if (overlay && video && !seen && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const page = document.getElementById('page-shell');
+  let done = false;
+  let failsafe: ReturnType<typeof setTimeout>;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(failsafe);
+    video.pause();
+    overlay.classList.add('intro-done');
+    page?.removeAttribute('inert');
+    document.body.style.overflow = '';
+    if (document.activeElement === skip) document.getElementById('main')?.focus({preventScroll:true});
+    try { sessionStorage.setItem(key, '1'); } catch {}
+    setTimeout(() => overlay.remove(), 650);
+  };
+  overlay.hidden = false;
+  page?.setAttribute('inert','');
+  document.body.style.overflow = 'hidden';
+  skip?.addEventListener('click',finish);
+  overlay.addEventListener('keydown', e => { if(e.key === 'Escape') finish(); });
+  video.addEventListener('ended',finish,{once:true});
+  video.addEventListener('error',finish,{once:true});
+  failsafe = setTimeout(finish,4600);
+  video.muted = true;
+  video.src = video.dataset.src!;
+  video.play().catch(finish);
+} else { overlay?.remove(); }
+</script>

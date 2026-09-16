@@ -1,0 +1,25 @@
+---
+import Arrow from './Arrow.astro';
+const base = import.meta.env.BASE_URL;
+const links = [['Meet your trainers','trainers'],['Training options','training'],['Your experience','experience'],['FAQs','faqs']];
+---
+<header class="site-header">
+  <a class="wordmark" href={`${base}#top`} aria-label="4Ever Fit Lifestyle home">4EVER FIT<span>LIFESTYLE</span></a>
+  <nav class="desktop-nav" aria-label="Main navigation">{links.map(([text,id])=><a href={`${base}#${id}`}>{text}</a>)}</nav>
+  <a class="button header-cta" href={`${base}#consultation`}>Let’s talk <Arrow /></a>
+  <button class="menu-toggle" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" hidden><span></span><span></span></button>
+  <nav id="mobile-nav" aria-label="Mobile navigation" hidden>{links.map(([text,id])=><a href={`${base}#${id}`}>{text}<Arrow /></a>)}<a href={`${base}#consultation`}>Request a consultation<Arrow /></a></nav>
+</header>
+<script>
+const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
+const menu=document.getElementById('mobile-nav');
+if(toggle && menu){
+  toggle.hidden=false;
+  const close=()=>{menu.hidden=true;toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open menu');};
+  toggle.addEventListener('click',()=>{const open=menu.hidden;menu.hidden=!open;toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close menu':'Open menu');});
+  menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',close));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){close();toggle.focus();}});
+  document.addEventListener('click',e=>{if(!(e.target as Element).closest('.site-header'))close();});
+  matchMedia('(min-width: 1000px)').addEventListener('change',close);
+}
+</script>
