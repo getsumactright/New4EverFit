@@ -1,0 +1,122 @@
+---
+// Logo — the client's actual mark: a cast bronze/gunmetal badge
+// (branding/final/4everfit-badge-logo-final.png). Used as a small icon
+// next to a type-set wordmark at nav/footer sizes (the badge's internal
+// text is illegible below ~40px), and full-size, with the one-time sheen
+// sweep, in the hero.
+interface Props {
+  size?: string; // badge diameter, e.g. "36px"
+  href?: string;
+  class?: string;
+  showTag?: boolean;
+  showBadge?: boolean;
+  bold?: boolean;
+  wordmarkSize?: string;
+}
+const {
+  size = '36px',
+  href = '#top',
+  class: className = '',
+  showTag = true,
+  showBadge = true,
+  bold = false,
+  wordmarkSize,
+} = Astro.props;
+// Bebas is markedly more condensed than the serif it replaces (about 27%
+// narrower at the same size), so the wordmark needs to be set larger
+// relative to the badge to keep the lockup balanced.
+const resolvedWordmark = wordmarkSize ?? `calc(${size} * 0.62)`;
+// The tagline and the badge-to-wordmark gap were both fixed at 10px, which
+// held the lockup together at the 28-40px sizes it originally shipped at but
+// pulled it apart once the header mark grew. The tagline now tracks the
+// wordmark (not the badge — the badge is optional and can't be the reference
+// when it isn't rendered); the gap tracks the badge, since that is what it
+// separates. The 10px floor keeps every previously shipped size identical:
+// at the footers' 28px badge this resolves to 8.68px, so the floor wins.
+const resolvedTag = `max(10px, calc(${resolvedWordmark} * 0.5))`;
+// Emphasis for the wordmark. Bebas ships one weight, so `font-weight: 700`
+// would be a browser synthesis — banned in fonts.css and DESIGN.md, and it
+// renders differently in every engine. Thickening the real outline gives the
+// same optical weight with the display face still at 400. Set as longhands in
+// an inline style: the `-webkit-text-stroke` shorthand dropped the width on
+// the live page (computed 0px) while keeping the colour, and `paint-order`
+// is SVG-only in Chrome, so neither is trustworthy here.
+const strokeStyle = bold
+  ? `-webkit-text-stroke-width:calc(${resolvedWordmark} * 0.02);-webkit-text-stroke-color:currentColor;`
+  : '';
+const resolvedGap = showBadge ? `max(10px, calc(${size} * 0.25))` : '0px';
+const base = import.meta.env.BASE_URL;
+---
+<a
+  href={href}
+  class:list={['logo-lockup inline-flex items-center', className]}
+  style={`--logo-gap:${resolvedGap};--logo-tag-size:${resolvedTag}`}
+>
+  {showBadge && (
+    <img
+      src={`${base}logo/badge-sm.webp`}
+      alt=""
+      aria-hidden="true"
+      class="logo-badge"
+      style={`width:${size};height:${size}`}
+      width="160"
+      height="133"
+    />
+  )}
+  <span class="logo-word-stack">
+    <span class="logo-word" style={`font-size:${resolvedWordmark};${strokeStyle}`}>4Ever Fit</span>
+    {showTag && <span class="logo-tag">Lifestyle</span>}
+  </span>
+  <span class="sr-only">4Ever Fit Lifestyle — home</span>
+</a>
+
+<style>
+  .logo-lockup {
+    text-decoration: none;
+    gap: var(--logo-gap);
+  }
+  .logo-badge {
+    display: block;
+    object-fit: contain;
+    flex: none;
+  }
+  .logo-word-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 3px;
+  }
+  .logo-word {
+    /* Same trailing-tracking correction as .logo-tag below. Both lines are
+       centred as flex items, so BOTH need their trailing letter-space removed
+       or the wider tracking on the tagline pulls the two optical centres
+       apart. Measured from rendered pixels: uncorrected 2.24px, correcting
+       only the tagline 1.33px, correcting both 0. */
+    margin-right: -0.045em;
+    font-family: var(--font-display);
+    /* Bebas Neue: single weight, capitals only. The wordmark reads as
+       4EVER FIT regardless of the casing in the markup. */
+    font-weight: 400;
+    letter-spacing: 0.045em;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .logo-tag {
+    font-family: var(--font-body);
+    font-size: var(--logo-tag-size);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    /* Tracking adds a trailing space after the final letter, so the text box
+       is 0.16em wider than the glyphs. Centring the box would leave the word
+       visually shifted left of the wordmark above it; this pulls the box back
+       in by exactly the trailing space so the glyphs centre optically. */
+    margin-right: -0.16em;
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+  /* Inside a white card the tagline needs the accent rather than the
+     ground treatment - opt in with .on-surface. */
+  :global(.on-surface) .logo-word { color: var(--color-ink); }
+  :global(.on-surface) .logo-tag { color: var(--color-accent); }
+</style>

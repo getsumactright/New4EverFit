@@ -1,0 +1,61 @@
+---
+// Button — 3 variants. Pill-shaped, sentence-case labels (the old system's
+// forced uppercase button text was part of its "shouty" brutalist voice;
+// this brand is calm and confident instead, per PRODUCT.md).
+interface Props {
+  variant?: 'primary' | 'secondary' | 'inverted';
+  href?: string;
+  type?: 'button' | 'submit';
+  block?: boolean;
+  class?: string;
+  id?: string;
+  /* Anything else — data-* hooks, aria-*, disabled — is forwarded to the
+     rendered tag. Without this the component silently swallowed every
+     data-* prop at build time, which left the assessment's Back,
+     Start-over and Submit controls and the drawer's close-on-navigate
+     wired to handlers that could never match. */
+  [key: string]: unknown;
+}
+const {
+  variant = 'primary',
+  href,
+  type = 'button',
+  block = false,
+  class: className = '',
+  id,
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-body font-semibold text-[15px] tracking-[-0.01em] px-6 py-3.5 rounded-full transition-[background-color,box-shadow,transform] duration-200 ease-out';
+
+const variants: Record<string, string> = {
+  primary:
+    'btn-primary bg-accent text-on-accent hover:bg-accent-hover focus-visible:bg-accent-hover shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-accent)] active:scale-[0.98]',
+  secondary:
+    'btn-secondary bg-transparent text-ink border border-[color-mix(in_srgb,var(--color-ink)_35%,transparent)] hover:border-accent hover:text-accent-hover active:scale-[0.98]',
+  inverted:
+    'btn-inverted bg-surface text-ink hover:bg-[color:var(--color-surface-muted)] shadow-[var(--shadow-sm)] active:scale-[0.98]',
+};
+
+const widthClass = block ? 'w-full' : '';
+const cls = `${base} ${variants[variant]} ${widthClass} ${className}`;
+const Tag = href ? 'a' : 'button';
+---
+<Tag class={cls} href={href} type={href ? undefined : type} id={id} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  /* Secondary sits on the page ground by default. Inside a white card
+     (the assessment) it needs a slightly stronger border so the outline
+     still reads against white rather than against the ground. */
+  :global(.on-surface) .btn-secondary {
+    color: var(--color-ink);
+    border-color: color-mix(in srgb, var(--color-ink) 30%, transparent);
+  }
+  :global(.on-surface) .btn-secondary:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>

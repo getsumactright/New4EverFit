@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   4EverFit Lifestyle — visual system v3, "Graphite"
+   ─────────────────────────────────────────────────────────────────────────
+   Supersedes v2 "Cast Bronze" (warm cream ground + brass accent), which
+   itself replaced the original flat "Counted Weight" system. The brass
+   accent measured 3.26:1 on its ground and failed AA for the small numerals
+   and accordion glyphs it carried; the cream ground sat at the centre of the
+   warm-neutral band that reads as generic. Both are gone.
+
+   Direction: near-zero-chroma light paper, deep graphite accent, and the
+   cast-bronze badge left as the only colour on the page — PRODUCT.md
+   principle 1 ("the badge earns its keep once") taken literally.
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  /* ── Graphite ────────────────────────────────────────────────────────────
+     Near-zero-chroma light ground with a deep graphite accent. Chosen
+     2026-08-23, replacing the warm-ink + accent system.
+
+     The point of the near-zero chroma: the cast-bronze badge becomes the
+     only colour on the page, which is PRODUCT.md principle 1 taken
+     literally. Nothing else competes with the mark.
+
+     Every ratio below is measured, not estimated:
+       ink/bg 16.17  ink/raised 14.36  ink/surface 17.80
+       muted/bg 5.59  muted/raised 4.97  muted/surface 6.16
+       accent/bg 12.44  accent/raised 11.04  accent/surface 13.69
+       accent/soft 11.15  white-on-accent 13.69  white-on-accent-hover 17.84
+     The previous accent accent measured 3.26:1 on the ground and failed AA
+     for the small numerals and accordion glyphs it was carrying. This one
+     clears AA everywhere, so the accent may be used at any text size.
+     ──────────────────────────────────────────────────────────────────────── */
+
+  /* Ground */
+  --color-bg: #F4F4F3;            /* page ground */
+  --color-bg-raised: #E6E7E6;     /* banded sections — stat row, drawers */
+  --color-surface: #FFFFFF;       /* cards: assessment, pillars, results */
+  --color-surface-muted: #F0F1F1; /* hover/pressed fill on a card */
+
+  /* Ink */
+  --color-ink: #16181A;           /* primary text, every surface */
+  --color-muted: #5E6265;         /* secondary text, every surface */
+
+  /* Accent — deep graphite. Cleared for text at any size. */
+  --color-accent: #2A2E31;        /* fills, emphasis text, numerals, icons */
+  --color-accent-hover: #15181A;  /* hover / pressed / focus fill */
+  --color-accent-soft: #E7E8E8;   /* chips, selected-option fill */
+  --color-on-accent: #FFFFFF;     /* text/icons ON an accent fill (13.69:1) */
+
+  /* Structure. On a near-white ground a white card cannot separate by value
+     (surface/bg is only 1.10:1), so the card edge is carried by this
+     hairline instead: 1.74:1 on the ground, 1.91:1 on a card. */
+  --color-line: #B9BCBB;
+
+  /* Specular highlight for the badge's sheen sweep. Cool near-white, because
+     the artwork is charcoal gunmetal — real metal throws a white specular, and
+     the previous warm bronze value (#E7C483) read as a gold halo once the
+     leather field was recoloured. Exists only for the badge; not an accent. */
+  --color-badge-sheen: #E9EEF2;
+
+  /* Display is Bebas Neue: capitals only, single weight, no italic. Anything
+     using it must stay at font-weight 400 and font-style normal. */
+  --font-display: "Bebas Neue", "Oswald", Impact, sans-serif;
+  --font-body: "Poppins", system-ui, -apple-system, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 3px color-mix(in srgb, #0B0C0D 22%, transparent);
+  --shadow-md: 0 8px 24px color-mix(in srgb, #0B0C0D 20%, transparent);
+  --shadow-lg: 0 24px 56px color-mix(in srgb, #0B0C0D 24%, transparent);
+  --shadow-accent: 0 0 0 1px color-mix(in srgb, var(--color-accent) 55%, transparent),
+    0 10px 30px color-mix(in srgb, var(--color-accent) 20%, transparent);
+
+  /* Semantic z-index scale — never arbitrary values elsewhere */
+  --z-sticky: 20;
+  --z-modal-backdrop: 30;
+  --z-modal: 31;
+  --z-toast: 40;
+  --z-intro: 60;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-raised: var(--color-bg-raised);
+  --color-surface: var(--color-surface);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-ink: var(--color-ink);
+  --color-muted: var(--color-muted);
+
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-on-accent: var(--color-on-accent);
+
+  --color-line: var(--color-line);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    /* Bebas ships one weight — asking for 600 here would synthesise a fake bold. */
+    font-weight: 400;
+    /* Caps-only with a tall cap-height, so it sets tighter than the old serif
+       and wants positive tracking rather than the serif's negative. */
+    line-height: 1.02;
+    letter-spacing: 0.012em;
+    margin: 0;
+  }
+  h1, h2 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+  ::selection { background: color-mix(in srgb, var(--color-accent) 35%, transparent); }
+
+  /* Eyebrow — used deliberately on a handful of sections, not every one */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .mark { display: block; width: 7px; height: 7px; border-radius: 999px; background: var(--color-accent); flex: none; }
+  .mark-hollow { display: block; width: 16px; height: 16px; border-radius: 999px; border: 2px solid color-mix(in srgb, var(--color-ink) 30%, transparent); flex: none; }
+  .on-surface .mark-hollow { border-color: color-mix(in srgb, var(--color-ink) 30%, transparent); }
+
+  /* The quiz radios are .sr-only and represented visually by .mark-hollow,
+     so checked and focus have to be drawn on the marker and its label —
+     the input itself is a 1x1 clipped box and an outline on it is
+     invisible. Without these two rules, selecting an answer marks nothing
+     and a keyboard user gets no focus indicator anywhere in the page's
+     only interactive flow (WCAG 2.1 AA 2.4.7). */
+  input:checked + .mark-hollow {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: inset 0 0 0 3px var(--color-surface);
+  }
+  label:has(input:focus-visible) {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+    border-radius: var(--radius-sm);
+  }
+  /* Progress state lives on the ancestor [data-progress-item], not the
+     marker itself — descendant selectors so it applies regardless of
+     nesting (desktop: circle marker; mobile: bar marker). */
+  [data-done="true"] .mark-hollow,
+  [data-done="true"] [data-progress-marker] {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .grayscale { filter: saturate(0.82) contrast(1.05); }
+  .rule { border: 0; border-top: 1px solid var(--color-line); }
+
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  /* Native <details> single-open accordion marker (+ / –). */
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  .acc-sign::before { content: "+"; }
+  details[open] .acc-sign::before { content: "\2013"; }
+
+  /* Slow bronze sheen — used once, on the hero badge, per "the badge earns
+     its keep once" principle. Not applied anywhere else. */
+  @keyframes sheen {
+    0%, 100% { background-position: -120% 0; }
+    50% { background-position: 220% 0; }
+  }
+  .badge-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .badge-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 40%,
+      color-mix(in srgb, var(--color-badge-sheen) 55%, transparent) 50%,
+      transparent 60%
+    );
+    background-size: 300% 100%;
+    animation: sheen 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .badge-sheen::after { animation: none; display: none; }
+  }
+}

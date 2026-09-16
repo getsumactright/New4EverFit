@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  id?: string;
+}
+const { label, name, type = 'text', placeholder, required = false, id } = Astro.props;
+const inputId = id ?? `field-${name}`;
+---
+<div class="field flex flex-col gap-1.5">
+  <label for={inputId} class="text-[13px] font-medium text-[color:var(--color-muted)]">
+    {label}
+  </label>
+  <input
+    id={inputId}
+    name={name}
+    type={type}
+    placeholder={placeholder}
+    required={required}
+    class="w-full min-h-[48px] px-4 py-3 text-[16px] text-ink bg-white rounded-[var(--radius-sm)] border border-[color:var(--color-line)] focus-visible:border-[color:var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-accent)]"
+  />
+</div>

@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Astro site (site/)
+site/node_modules/
+site/dist/
+site/.astro/
+site/.env
+site/.env.production
+
+# Signed client paperwork — kept locally, not in the repo
+Documents/
+
+# Intro recordings and stills — build-review material, regenerated on demand
+# by intro-capture/capture-intro.mjs, not shipped by the site.
+intro-capture/

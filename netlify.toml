@@ -1,0 +1,29 @@
+# Netlify build config.
+#
+# The Astro project lives in site/, not the repo root, so `base` points there
+# and `publish` is relative to it. With these set, connecting the repo in the
+# Netlify UI needs no further configuration — push to main and it deploys.
+
+[build]
+  base    = "site"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Matches the engines field in site/package.json.
+  NODE_VERSION = "22"
+
+# Deploy previews for pull requests and branch pushes are on by default;
+# nothing to configure here for them.
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    # Fonts are content-hashed by filename and never mutate in place.
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    # Astro fingerprints these filenames on every build.
+    Cache-Control = "public, max-age=31536000, immutable"

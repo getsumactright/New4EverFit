@@ -1,0 +1,19 @@
+---
+// Desaturated (not fully grayscale) photo wrapper — see DESIGN.md's
+// Imagery note. `alt` is required.
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  minHeight?: string;
+  aspect?: string;
+  rounded?: boolean;
+}
+const { src, alt, class: className = '', minHeight, aspect, rounded = false } = Astro.props;
+---
+<div
+  class:list={['grayscale overflow-hidden', rounded && 'rounded-[var(--radius-lg)]', className]}
+  style={{ minHeight, aspectRatio: aspect }}
+>
+  <img src={src} alt={alt} loading="lazy" class="w-full h-full object-cover" width="900" height="1200" />
+</div>
