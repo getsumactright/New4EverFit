@@ -10,15 +10,15 @@ const preview=business.reviewMode || !endpoint;
     <h2 id="consultation-heading">Your next chapter<br/>starts with<br/><span class="muted-word">a conversation.</span></h2>
     <p>Tell us a little about yourself. We’ll talk through your goals, your routine, and the kind of coaching that could work for you.</p>
     <div class="consultation-notes"><span>No need to have it all figured out.</span><span>No commitment to a training program.</span></div>
-    <p class="location-note">Currently coaching in {business.locations.join(' and ')}.<br/>Online coaching also available. Local availability may change.</p>
+    <p class="location-note">Currently coaching in {business.locations.join(' and ')}.<br/>Customized online coaching available worldwide. Local availability may change.</p>
   </div>
   <div class="form-wrap">
     {preview && <p class="review-note"><strong>Design preview</strong> Try the form below. No request will be sent. Testing contact: {business.email}.</p>}
     <form id="consultation-form" data-endpoint={preview?'':endpoint} data-email={business.email}>
       <div class="form-pair"><label>Your name<input name="name" autocomplete="name" required maxlength="100" placeholder="First and last name" /></label><label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" /></label></div>
       <fieldset><legend>How would you like to train?</legend><div class="service-choices">{[...services.map(s=>s.name),'Help me decide'].map((name)=><label><input type="radio" name="service" value={name} required /><span>{name}</span></label>)}</div></fieldset>
-      <div class="form-pair"><label>Your city or area<input name="location" autocomplete="address-level2" required maxlength="120" placeholder="Where are you based?" /></label><label>Your main goal<select name="goal" required><option value="">Choose your goal</option><option>Build strength</option><option>Lose weight</option><option>Improve everyday fitness</option><option>Get back into training</option><option>Posing & stage confidence</option><option>Something else</option></select></label></div>
-      <label>Anything else you’d like us to know? <span class="optional">Optional</span><textarea name="message" rows="3" maxlength="2000" placeholder="A little about your goals or schedule…"></textarea></label>
+      <div class="form-pair"><label>Your city or area<input name="location" autocomplete="address-level2" required maxlength="120" placeholder="Where are you based?" /></label><label>Your main goal<select name="goal" required><option value="">Choose your goal</option><option>Build strength</option><option>Lose weight</option><option>Improve everyday fitness</option><option>Get back into training</option><option>Posing & stage confidence</option><option>Competition preparation</option><option>Something else</option></select></label></div>
+      <label>Anything else you’d like us to know? <span class="optional">Optional</span><textarea name="message" rows="3" maxlength="2000" placeholder="Your goals, schedule, preferred language, or a 30- or 60-minute strategy meeting…"></textarea></label>
       <p class="form-privacy">We’ll use these details to respond to your enquiry. Please leave out sensitive medical information. <a href={`${base}privacy/`}>Privacy details</a>.</p>
       <button class="button submit-button" type="submit" disabled><span>{preview?'Preview consultation request':'Request a consultation'}</span><Arrow /></button>
       <noscript><p>Please enable JavaScript to use this form, or email <a href={`mailto:${business.email}`}>{business.email}</a>.</p></noscript>
