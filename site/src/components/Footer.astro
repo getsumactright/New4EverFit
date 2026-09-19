@@ -5,7 +5,7 @@ const base=import.meta.env.BASE_URL;
 ---
 <footer class="site-footer">
  <div class="footer-top"><a class="wordmark" href={`${base}#top`}>4EVER FIT<span>LIFESTYLE</span></a><p>Strength for your life.<br/>Coaching for your next chapter.</p><div class="social-links" aria-label="Follow Paul and Marley"><a class="text-link" href={business.instagram} target="_blank" rel="noopener noreferrer">Instagram <Arrow /></a><a class="text-link" href={business.tiktok} target="_blank" rel="noopener noreferrer">TikTok <Arrow /></a></div></div>
- <div class="footer-bottom"><span>© {new Date().getFullYear()} {business.name}</span><a href={`mailto:${business.email}`}>{business.email}</a><a href={`${base}privacy/`}>Privacy</a><button id="replay-intro" type="button">Replay intro</button></div>
+ <div class="footer-bottom"><span>© {new Date().getFullYear()} {business.name}</span><div class="builder-credit"><span>They build strength. We build websites.</span><a href="https://wecanbuildthat.org" target="_blank" rel="noopener noreferrer">We Can Build That <span aria-hidden="true">↗</span></a></div><a href={`${base}privacy/`}>Privacy</a><button id="replay-intro" type="button">Replay intro</button></div>
 </footer>
 <script>
 document.getElementById('replay-intro')?.addEventListener('click',()=>{try{sessionStorage.removeItem('4everfit-intro-seen');}catch{}location.hash='top';location.reload();});
