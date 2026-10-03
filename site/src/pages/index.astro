@@ -73,7 +73,7 @@ const faqs=[
 <Consultation/>
 </main>
 <Footer/>
-<a class="mobile-consultation button" href="#consultation" hidden>Request a consultation <Arrow/></a>
+<a class="mobile-consultation button" href="#consultation">Request a consultation <Arrow/></a>
 </div>
 <script>
 const sticky=document.querySelector<HTMLElement>('.mobile-consultation');
@@ -82,7 +82,7 @@ const consultation=document.getElementById('consultation');
 const footer=document.querySelector('.site-footer');
 if(sticky && hero && consultation && footer){
  let heroVisible=true,formVisible=false,footerVisible=false;
- const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.target===hero)heroVisible=e.isIntersecting;if(e.target===consultation)formVisible=e.isIntersecting;if(e.target===footer)footerVisible=e.isIntersecting;}sticky.hidden=heroVisible||formVisible||footerVisible;});
+ const observer=new IntersectionObserver(entries=>{for(const e of entries){if(e.target===hero)heroVisible=e.isIntersecting;if(e.target===consultation)formVisible=e.isIntersecting;if(e.target===footer)footerVisible=e.isIntersecting;}document.documentElement.classList.toggle('cta-docked',!(heroVisible||formVisible||footerVisible));});
  [hero,consultation,footer].forEach(el=>observer.observe(el));
 }
 </script>
