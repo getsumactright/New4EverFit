@@ -16,10 +16,13 @@ if (overlay && video && !seen && !matchMedia('(prefers-reduced-motion: reduce)')
   const page = document.getElementById('page-shell');
   let done = false;
   let failsafe: ReturnType<typeof setTimeout>;
+  // Any attempt to use the page ends the intro, so the visitor is never locked out.
+  const interrupts = ['pointerdown', 'wheel', 'touchmove', 'keydown'] as const;
   const finish = () => {
     if (done) return;
     done = true;
     clearTimeout(failsafe);
+    interrupts.forEach(type => window.removeEventListener(type, finish));
     video.pause();
     overlay.classList.add('intro-done');
     page?.removeAttribute('inert');
@@ -32,7 +35,7 @@ if (overlay && video && !seen && !matchMedia('(prefers-reduced-motion: reduce)')
   page?.setAttribute('inert','');
   document.body.style.overflow = 'hidden';
   skip?.addEventListener('click',finish);
-  overlay.addEventListener('keydown', e => { if(e.key === 'Escape') finish(); });
+  interrupts.forEach(type => window.addEventListener(type, finish, { passive: true }));
   video.addEventListener('ended',finish,{once:true});
   video.addEventListener('error',finish,{once:true});
   failsafe = setTimeout(finish,4600);

@@ -22,4 +22,8 @@ FIRST VIEWPORT: Oversized three-line headline left; warm training photograph rig
 FORM: User-approved editorial training studio; pinned direction overrides seed b900df93.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md -->
 <slot/>
+<script>
+// iOS Safari only applies :active styles once the page listens for touches.
+document.addEventListener('touchstart', () => {}, { passive: true });
+</script>
 </body></html>
