@@ -24,3 +24,6 @@
 @media(max-width:639px){.builder-credit{width:100%;margin-left:0;margin-block:4px 8px}}
 .text-link:active,.hero-secondary:active,.desktop-nav a:active,#mobile-nav a:active,.location-strip a:active,.faq summary:active,.builder-credit>a:active{opacity:.6}
 @media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.site-header{background:var(--paper);-webkit-backdrop-filter:none;backdrop-filter:none}}
+
+/* Authentic trainer portrait, preserving the full composition. */
+.trainer-photo{margin:30px 0 0}.trainer-photo picture{display:block}.trainer-photo img{display:block;width:100%;height:auto;border-radius:12px}
