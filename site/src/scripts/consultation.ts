@@ -29,7 +29,7 @@ if(form){
    for(const [title,key] of fields){const value=String(data.get(key)||'');if(!value)continue;const dt=document.createElement('dt');dt.textContent=title;const dd=document.createElement('dd');dd.textContent=value;summary.append(dt,dd);}
    const draft=document.getElementById('email-draft') as HTMLAnchorElement;
    draft.hidden=!!endpoint;
-   if(!endpoint){const body=fields.map(([title,key])=>`${title}: ${data.get(key)||'—'}`).join('\n');draft.href=`mailto:${form.dataset.email}?subject=${encodeURIComponent('4Ever Fit consultation request — testing')}&body=${encodeURIComponent(body)}`;}
+   if(!endpoint){const body=fields.map(([title,key])=>`${title}: ${data.get(key)||'—'}`).join('\n');draft.href=`mailto:${form.dataset.email}?subject=${encodeURIComponent('4-Ever Fit consultation request — testing')}&body=${encodeURIComponent(body)}`;}
    form.hidden=true;result.hidden=false;result.focus();
   }catch{
    error.textContent='Your request could not be confirmed. Your details are still here. Please try again or use the contact email in the footer.';error.hidden=false;

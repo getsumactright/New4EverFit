@@ -1,6 +1,6 @@
 // Change locations and the contact address here; all page sections share this source.
 export const business = {
-  name: '4Ever Fit Lifestyle',
+  name: '4-Ever Fit Lifestyle',
   trainers: ['Paul Urciaga', 'Marley Urciaga'],
   locations: ['Sacramento, California', 'Maui, Hawaii'],
   email: 'hello@wecanbuildthat.org',
