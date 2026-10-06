@@ -67,7 +67,7 @@ const faqs=[
 <section class="method section" aria-labelledby="method-heading">
  <div class="method-intro"><h2 id="method-heading">More than<br/><span>the workout.</span></h2><p>Looking fit is only half the equation. Our goal is to help you feel better, support your overall well-being, and build a vibrant lifestyle you can sustain. Four core components guide the approach:</p><img class="method-badge" src={`${base}logo/badge-silver-400.webp`} alt="Four-pillar 4-Ever Fit badge" width="400" height="368" loading="lazy"/></div>
  <div class="pillar-list">{pillars.map(p=><div class="pillar"><h3>{p.name}</h3><p>{p.body}</p></div>)}<a class="text-link" href="#consultation">Let’s talk about your goals <Arrow/></a></div>
- <span class="method-watermark" aria-hidden="true">4EVER</span>
+ <span class="method-watermark" aria-hidden="true">4-EVER</span>
 </section>
 <section class="experience section" id="experience"><div class="section-heading"><h2>Real life.<br/><span class="muted-word">Real support.</span></h2><p>What to expect from your coaching.</p></div><div class="expectations">{expectations.map((item)=><article><h3>{item.title}</h3><p>{item.body}</p></article>)}</div></section>
 <section class="faq section" id="faqs"><div><h2>A little clarity.<br/><span class="muted-word">Before you start.</span></h2><p>Still have a question?<br/><a class="text-link" href="#consultation">Let’s talk <Arrow/></a></p></div><div class="faq-list">{faqs.map(([question,answer])=><details name="faq"><summary>{question}<span class="faq-icon" aria-hidden="true"></span></summary><p>{answer}</p></details>)}</div></section>
