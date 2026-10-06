@@ -27,3 +27,5 @@
 
 /* Authentic trainer portrait, preserving the full composition. */
 .trainer-photo{margin:30px 0 0}.trainer-photo picture{display:block}.trainer-photo img{display:block;width:100%;height:auto;border-radius:12px}
+
+.trainer-title>.social-links{margin-top:24px}
