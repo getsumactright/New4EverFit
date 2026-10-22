@@ -22,4 +22,4 @@ Before launch: approve real trainer photography, final contact address, form pro
 - Consultation interaction: `site/src/scripts/consultation.ts`
 - Silver intro: `site/src/components/SilverIntro.astro`
 
-The approved silver video is retained. The coaching photograph is an AI-generated illustrative placeholder, not a depiction of the named trainers. Its visible caption states this. Prior assessment components remain in source history/unused files and are not rendered by the redesigned page.
+The approved silver video is retained. The hero uses the client-supplied `4EverFitMain.jpg` gym photograph, cropped and retouched with imagegen on 2026-10-22, with responsive WebP variants and a JPEG fallback. Prior assessment components remain in source history/unused files and are not rendered by the redesigned page.

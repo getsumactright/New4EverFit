@@ -43,8 +43,11 @@ const faqs=[
   <a class="hero-secondary" href="#trainers">Get to know Paul & Marley <span aria-hidden="true">↓</span></a>
  </div>
  <figure class="hero-visual">
-  <img src={`${base}img/coaching-editorial.jpg`} alt="Illustrative coaching scene: a trainer guides a client through a kettlebell squat" width="1536" height="1024" fetchpriority="high" loading="eager"/>
-  <div class="photo-caption"><span>Built around you.</span><small>Illustrative image · trainer photos coming soon</small></div>
+  <picture>
+   <source type="image/webp" srcset={`${base}img/hero-coaching-480.webp 480w, ${base}img/hero-coaching-800.webp 800w, ${base}img/hero-coaching-1120.webp 1120w`} sizes="(max-width: 439px) calc(100vw - 44px), (max-width: 639px) 90vw, (max-width: 999px) calc(45vw - 11px), (max-width: 1759px) calc(45vw - 22px), 790px"/>
+   <img src={`${base}img/hero-coaching-1120.jpg`} alt="A coach guides a client through a dumbbell exercise in the gym" width="1120" height="1400" fetchpriority="high" loading="eager"/>
+  </picture>
+  <div class="photo-caption"><span>Built around you.</span></div>
   <div class="hero-badge"><img src={`${base}logo/badge-silver-400.webp`} alt="4-Ever Fit Lifestyle" width="400" height="368"/></div>
  </figure>
 </section>

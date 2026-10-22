@@ -6,4 +6,4 @@ One responsive document supports phone, tablet and desktop. Consultation leads t
 
 Preserve the approved small silver intro with muted playback, skip, once-per-session behavior and reduced-motion handling. No surrounding shadow.
 
-Hero: AI-generated illustrative coaching photograph, JPEG, visibly labeled as temporary. Generated with imagegen on 2026-09-16: everyday woman doing a kettlebell goblet squat with an attentive male coach in a naturally lit gym; no intended likeness to the named trainers. Replace with client photography before launch.
+Hero: client-supplied `4EverFitMain.jpg`, showing a coach guiding a client through a dumbbell exercise in the gym. Cropped to a 4:5 portrait composition and retouched with imagegen on 2026-10-22 to balance color and lighting and reduce excess ceiling space. Responsive WebP variants at 480, 800 and 1120 pixels wide plus a JPEG fallback; preserve the portrait frame on phone, tablet and desktop.
